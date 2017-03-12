@@ -36,6 +36,6 @@ The same binary data can be sent to a printer:
 $ cat receipt-with-logo.bin > /dev/usb/lp0 
 ````
 
-![receipt-with-logo-small.png](https://raw.githubusercontent.com/mike42/escpos-snippets/master/parser/receipt-with-logo-small.png)
+![receipt-with-logo-small.png](https://raw.githubusercontent.com/receipt-print-hq/escpos-tools/master/parser/receipt-with-logo-small.png)
 
 The input file is generated via [escpos-php](https://github.com/mike42/escpos-php).
