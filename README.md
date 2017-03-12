@@ -1,4 +1,4 @@
-ESC/POS command-line tools
+ESC/POS command-line tools [![Build Status](https://travis-ci.org/receipt-print-hq/escpos-tools.svg?branch=master)](https://travis-ci.org/receipt-print-hq/escpos-tools)
 --------------
 
 This repository provides command-line utilities for extracting information from
