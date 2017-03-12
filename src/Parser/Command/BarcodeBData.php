@@ -8,7 +8,7 @@ class BarcodeBData extends Command
     private $data = "";
     private $len = null;
 
-    function addChar($char)
+    public function addChar($char)
     {
         if ($this -> len === null) {
             $this -> len = ord($char);

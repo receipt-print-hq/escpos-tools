@@ -8,12 +8,12 @@ class UnknownDataSubCmd extends Command
     private $data = "";
     private $dataSize;
 
-    function __construct($dataSize)
+    public function __construct($dataSize)
     {
         $this -> dataSize = $dataSize;
     }
 
-    function addChar($char)
+    public function addChar($char)
     {
         if (strlen($this -> data) < $this -> dataSize) {
             $this -> data .= $char;

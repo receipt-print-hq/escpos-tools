@@ -3,5 +3,5 @@ namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
 interface TextContainer
 {
-    function getText();
+    public function getText();
 }

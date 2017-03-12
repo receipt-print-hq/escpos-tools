@@ -3,11 +3,11 @@ namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
 abstract class Command
 {
-    function __construct()
+    public function __construct()
     {
     }
 
-    function addChar($char)
+    public function addChar($char)
     {
         return false;
     }

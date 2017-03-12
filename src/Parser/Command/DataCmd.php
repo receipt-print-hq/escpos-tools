@@ -13,7 +13,7 @@ abstract class DataCmd extends EscposCommand
     private $dataSize = null;
     private $subCommand = null;
     
-    function addChar($char)
+    public function addChar($char)
     {
         if ($this -> p1 === null) {
             $this -> p1 = ord($char);
@@ -33,7 +33,7 @@ abstract class DataCmd extends EscposCommand
         return $this -> subCommand -> addChar($char);
     }
     
-    function getSubCommand($arg1, $arg2, $len)
+    public function getSubCommand($arg1, $arg2, $len)
     {
         return new UnknownDataSubCmd($len);
     }

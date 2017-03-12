@@ -87,19 +87,19 @@ class Printout extends Command
     private $search;
     private $searchStack;
 
-    function __construct()
+    public function __construct()
     {
         $this -> commands = array();
         $this -> reset();
     }
 
-    function reset()
+    public function reset()
     {
         $this -> search = null;
         $this -> searchStack = [];
     }
 
-    function addChar($char)
+    public function addChar($char)
     {
         if (count($this -> searchStack) > 0) {
             // Matching parts of a command now.
@@ -129,7 +129,7 @@ class Printout extends Command
         return $this -> navigateCommand($char);
     }
 
-    function navigateCommand($char)
+    public function navigateCommand($char)
     {
         $this -> searchStack[] = $char;
         if (!isset($this -> search[$char])) {

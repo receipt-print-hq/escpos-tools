@@ -8,7 +8,7 @@ class PrintBarcodeCmd extends EscposCommand
     private $m = null;
     private $subCommand = null;
 
-    function addChar($char)
+    public function addChar($char)
     {
         if ($this -> m === null) {
             $this -> m = ord($char);

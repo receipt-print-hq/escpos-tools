@@ -3,7 +3,7 @@ namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
 interface ImageContainer
 {
-    function getWidth();
+    public function getWidth();
     
-    function getHeight();
+    public function getHeight();
 }

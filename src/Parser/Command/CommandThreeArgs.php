@@ -9,7 +9,7 @@ class CommandThreeArgs extends EscposCommand
     private $arg2 = null;
     private $arg3 = null;
 
-    function addChar($char)
+    public function addChar($char)
     {
         if ($this -> arg1 === null) {
             $this -> arg1 = ord($char);

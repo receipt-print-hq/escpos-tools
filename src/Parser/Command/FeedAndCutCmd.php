@@ -8,7 +8,7 @@ class FeedAndCutCmd extends Command
     private $arg1 = null;
     private $arg2 = null;
 
-    function addChar($char)
+    public function addChar($char)
     {
         if ($this -> arg1 === null) {
             $this -> arg1 = ord($char);

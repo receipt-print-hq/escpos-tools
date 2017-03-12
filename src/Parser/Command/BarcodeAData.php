@@ -8,7 +8,7 @@ class BarcodeAData extends Command
     private $data = "";
     private $done = false;
 
-    function addChar($char)
+    public function addChar($char)
     {
         if ($this -> done) {
             return false;

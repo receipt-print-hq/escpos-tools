@@ -13,7 +13,7 @@ class PrintRasterBitImageCmd extends EscposCommand
     private $dataLen = null;
     private $data = "";
 
-    function addChar($char)
+    public function addChar($char)
     {
         if ($this -> dataLen !== null) {
             if (strlen($this -> data) < $this -> dataLen) {

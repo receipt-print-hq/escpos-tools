@@ -8,7 +8,7 @@ class TextCmd extends Command implements TextContainer
 {
     private $str = "";
 
-    function addChar($char)
+    public function addChar($char)
     {
         if (isset(Printout::$tree[$char])) {
             // Reject ESC/POS control chars.
@@ -18,7 +18,7 @@ class TextCmd extends Command implements TextContainer
         return true;
     }
 
-    function getText()
+    public function getText()
     {
         return $this -> str;
     }

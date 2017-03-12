@@ -7,7 +7,7 @@ abstract class EscposCommand extends Command
 {
     private $stack;
 
-    function __construct(array $stack)
+    public function __construct(array $stack)
     {
         $this -> stack = $stack;
     }
