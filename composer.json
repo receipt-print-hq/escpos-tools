@@ -1,0 +1,10 @@
+{
+	"require" : {
+		"squizlabs/php_codesniffer" : "^2.8"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"ReceiptPrintHq\\EscposTools\\" : "src/"
+		}
+	}
+}

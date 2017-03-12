@@ -1,8 +1,18 @@
-ESC/POS parser
+ESC/POS command-line tools
 --------------
 
-This is a prototype ESC/POS parser, which can extract the commands contained in
-printable ESC/POS binary data.
+This repository provides command-line utilities for extracting information from
+binary ESC/POS data. ESC/POS is a page description language that is commonly
+used for receipt printing.
+
+Currently we have a prototype ESC/POS parser, which can extract the commands
+contained in printable ESC/POS binary data, and print the text in a receipt.
+
+### Quick start
+
+```bash
+composer install
+```
 
 ### esc2text utility
 `esc2text` will simply extract text and line breaks. Add `-v` as the last argument to see all the
