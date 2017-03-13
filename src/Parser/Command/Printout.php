@@ -2,6 +2,7 @@
 namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
 use ReceiptPrintHq\EscposTools\Parser\Command\Command;
+use ReceiptPrintHq\EscposTools\Parser\Context\ParserContext;
 
 // Constants
 const NUL = "\x00";
@@ -87,8 +88,9 @@ class Printout extends Command
     private $search;
     private $searchStack;
 
-    public function __construct()
+    public function __construct(ParserContext $context)
     {
+        parent::__construct($context);
         $this -> commands = array();
         $this -> reset();
     }
@@ -117,7 +119,7 @@ class Printout extends Command
         }
         // Has been rejected or we don't have a command yet. See if we can start a string
         if (count($this -> commands) == 0 || !is_a($this -> commands[count($this -> commands) - 1], 'TextCmd')) {
-            $top = new TextCmd(array());
+            $top = new TextCmd($this -> context, array());
             if ($top -> addChar($char)) {
                 // Character was accepted to start a string.
                 $this -> commands[] = $top;
@@ -142,7 +144,7 @@ class Printout extends Command
         } else {
             // Matched a command right here
             $class = "ReceiptPrintHq\\EscposTools\\Parser\\Command\\" . $this -> search[$char];
-            $this -> commands[] = new $class($this -> searchStack);
+            $this -> commands[] = new $class($this -> context, $this -> searchStack);
             $this -> reset();
         }
     }

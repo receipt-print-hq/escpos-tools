@@ -1,0 +1,11 @@
+.esc-receipt {
+  border: 1px solid #888;
+  font-family: monospace;
+  margin: 1em;
+  padding: 1em;
+  display: inline-block;
+}
+
+.esc-line {
+  white-space: pre;
+}

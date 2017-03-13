@@ -13,9 +13,9 @@ class PrintBarcodeCmd extends EscposCommand
         if ($this -> m === null) {
             $this -> m = ord($char);
             if ((0 <= $this -> m) && ($this -> m <= 6)) {
-                $this -> subCommand = new BarcodeAData();
+                $this -> subCommand = new BarcodeAData($this -> context);
             } elseif ((65 <= $this -> m) && ($this -> m <= 78)) {
-                $this -> subCommand = new BarcodeBData();
+                $this -> subCommand = new BarcodeBData($this -> context);
             }
             return true;
         }

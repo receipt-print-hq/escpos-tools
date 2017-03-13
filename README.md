@@ -42,10 +42,19 @@ Monday 6th of April 2015 02:56:25 PM
 
 The same binary data can be sent to a printer:
 
-````
+```
 $ cat receipt-with-logo.bin > /dev/usb/lp0 
-````
+```
 
 ![receipt-with-logo-small.png](https://raw.githubusercontent.com/receipt-print-hq/escpos-tools/master/receipt-with-logo-small.png)
 
 The input file is generated via [escpos-php](https://github.com/mike42/escpos-php).
+
+### esc2html utility
+
+`esc2html` convert an ESC/POS binary file to a HTML document. It is currently capable of rendering unformatted ASCII text.
+
+```
+$ php esc2html.php receipt-with-logo.bin > output.html
+```
+
