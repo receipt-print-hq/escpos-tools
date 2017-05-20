@@ -1,18 +1,21 @@
 <?php
 namespace ReceiptPrintHq\EscposTools\Parser\Context;
 
-class InlineFormatting {
+class InlineFormatting
+{
     public $bold = false;
     
-    public function __construct() {
-
+    public function __construct()
+    {
     }
 
-    function setBold($bold) {
+    public function setBold($bold)
+    {
         $this -> bold = $bold;
     }
 
-    public static function getDefault() {
+    public static function getDefault()
+    {
         return new InlineFormatting();
     }
 }

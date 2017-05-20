@@ -7,7 +7,8 @@ use ReceiptPrintHq\EscposTools\Parser\Context\InlineFormatting;
 
 class EnableEmphasisCmd extends CommandOneArg implements InlineFormattingCmd
 {
-    function applyToInlineFormatting(InlineFormatting $formatting) {
+    public function applyToInlineFormatting(InlineFormatting $formatting)
+    {
         $formatting -> setBold($this -> getArg() == 1);
     }
 }

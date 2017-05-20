@@ -20,7 +20,7 @@ abstract class Command
     public function isAvailableAs($interface)
     {
         $className = get_called_class();
-        if($className == "ReceiptPrintHq\\EscposTools\\Parser\\Command\\$interface") {
+        if ($className == "ReceiptPrintHq\\EscposTools\\Parser\\Command\\$interface") {
             return true;
         }
         $impl = class_implements($this);

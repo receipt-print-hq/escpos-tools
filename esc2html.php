@@ -83,15 +83,16 @@ function wrapBlock($tag, $closeTag, array $content, $indent = true)
     return $ret;
 }
 
-function span(InlineFormatting $formatting, $text) {
+function span(InlineFormatting $formatting, $text)
+{
     $classes = [];
 
-    if($formatting -> bold) {
+    if ($formatting -> bold) {
         $classes[] = "esc-emphasis";
     }
     
     // Output span with any non-default classes
-    if(count($classes) == 0) {
+    if (count($classes) == 0) {
         return $text;
     }
     return "<span class=\"". implode($classes, " ") . "\">" . $text . "</span>";
