@@ -9,3 +9,7 @@
 .esc-line {
   white-space: pre;
 }
+
+.esc-emphasis {
+	font-weight: bold;
+}
