@@ -5,6 +5,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use ReceiptPrintHq\EscposTools\Parser\Parser;
+use ReceiptPrintHq\EscposTools\Parser\Context\InlineFormatting;
 
 // Usage
 if (!isset($argv[1])) {
@@ -20,17 +21,25 @@ $parser -> addFile($fp);
 
 // Extract text
 $commands = $parser -> getCommands();
+$formatting = InlineFormatting::getDefault();
 $outp = array();
 $lineHtml = "";
 foreach ($commands as $cmd) {
+    if ($cmd -> isAvailableAs('InitializeCmd')) {
+        $formatting = InlineFormatting::getDefault();
+    }
+    if ($cmd -> isAvailableAs('InlineFormattingCmd')) {
+        $cmd -> applyToInlineFormatting($formatting);
+    }
     if ($cmd -> isAvailableAs('TextContainer')) {
         // Add text to line
-        $lineHtml .= htmlentities($cmd -> getText());
+        $spanContentHtml = htmlentities($cmd -> getText());
+        $lineHtml .= span($formatting, $spanContentHtml);
     }
     if ($cmd -> isAvailableAs('LineBreak')) {
         // Write fresh block element out to HTML
         if ($lineHtml === "") {
-            $lineHtml = "&nbsp;";
+            $lineHtml = span($formatting, "&nbsp;");
         }
         $outp[] = wrapInline("<div class=\"esc-line\">", "</div>", $lineHtml);
         $lineHtml = "";
@@ -49,8 +58,6 @@ $metaInfo = array_merge(
         "</style>"
     )
 );
-
-
 
 // Final document assembly
 $receipt = wrapBlock("<div class=\"esc-receipt\">", "</div>", $outp);
@@ -74,4 +81,19 @@ function wrapBlock($tag, $closeTag, array $content, $indent = true)
     }
     $ret[] = $closeTag;
     return $ret;
+}
+
+function span(InlineFormatting $formatting, $text)
+{
+    $classes = [];
+
+    if ($formatting -> bold) {
+        $classes[] = "esc-emphasis";
+    }
+    
+    // Output span with any non-default classes
+    if (count($classes) == 0) {
+        return $text;
+    }
+    return "<span class=\"". implode($classes, " ") . "\">" . $text . "</span>";
 }

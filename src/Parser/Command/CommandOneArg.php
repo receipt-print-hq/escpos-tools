@@ -16,4 +16,9 @@ class CommandOneArg extends EscposCommand
             return false;
         }
     }
+    
+    protected function getArg()
+    {
+        return $this -> arg;
+    }
 }
