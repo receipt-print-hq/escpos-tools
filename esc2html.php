@@ -42,8 +42,16 @@ foreach ($commands as $cmd) {
         if ($lineHtml === "") {
             $lineHtml = span($formatting);
         }
-        // TODO apply block-level formatting here, such as text justification
-        $outp[] = wrapInline("<div class=\"esc-line\">", "</div>", $lineHtml);
+        // Block-level formatting such as text justification
+        $classes = ["esc-line"];
+        if ($formatting -> justification === InlineFormatting::JUSTIFY_CENTER) {
+            $classes[] = "esc-justify-center";
+        } else if ($formatting -> justification === InlineFormatting::JUSTIFY_RIGHT) {
+            $classes[] = "esc-justify-right";
+        }
+
+        $classesStr = implode($classes, " ");
+        $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", $lineHtml);
         $lineHtml = "";
     }
 }
@@ -118,8 +126,6 @@ function span(InlineFormatting $formatting, $spanContentText = false)
         $spanContentHtml = htmlentities($spanContentText);
     }
 
-    //str_replace(" ", "&nbsp;", htmlentities());
-    
     // Output span with any non-default classes
     if (count($classes) == 0) {
         return $spanContentHtml;
