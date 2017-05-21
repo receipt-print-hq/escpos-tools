@@ -1,7 +1,7 @@
 <?php
-namespace ReceiptPrintHq\EscposTools;
+namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
-use ReceiptPrintHq\EscposTools\CommandOneArg;
+use ReceiptPrintHq\EscposTools\Parser\Command\CommandOneArg;
 
 class SelectFontCmd extends CommandOneArg
 {

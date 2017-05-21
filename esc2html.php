@@ -33,14 +33,16 @@ foreach ($commands as $cmd) {
     }
     if ($cmd -> isAvailableAs('TextContainer')) {
         // Add text to line
-        $spanContentHtml = htmlentities($cmd -> getText());
-        $lineHtml .= span($formatting, $spanContentHtml);
+        // TODO could decode text properly from legacy code page to UTF-8 here.
+        $spanContentText = $cmd -> getText();
+        $lineHtml .= span($formatting, $spanContentText);
     }
     if ($cmd -> isAvailableAs('LineBreak')) {
         // Write fresh block element out to HTML
         if ($lineHtml === "") {
-            $lineHtml = span($formatting, "&nbsp;");
+            $lineHtml = span($formatting);
         }
+        // TODO apply block-level formatting here, such as text justification
         $outp[] = wrapInline("<div class=\"esc-line\">", "</div>", $lineHtml);
         $lineHtml = "";
     }
@@ -66,7 +68,6 @@ $body = wrapBlock("<body>", "</body>", $receipt);
 $html = wrapBlock("<html>", "</html>", array_merge($head, $body), false);
 echo "<!DOCTYPE html>\n" . implode("\n", $html) . "\n";
 
-
 function wrapInline($tag, $closeTag, $content)
 {
     return $tag . $content . $closeTag;
@@ -83,17 +84,45 @@ function wrapBlock($tag, $closeTag, array $content, $indent = true)
     return $ret;
 }
 
-function span(InlineFormatting $formatting, $text)
+function span(InlineFormatting $formatting, $spanContentText = false)
 {
+    // Gut some features-
+    if ($formatting -> widthMultiple > 2) {
+        // Widths > 2 are not implemented. Cap the width at 2 to avoid formatting issues.
+        $formatting -> widthMultiple = 2;
+    }
+    if ($formatting -> heightMultiple > 2) {
+        // Widths > 2 are not implemented either
+        $formatting -> heightMultiple = 2;
+    }
+    
+   
+    // Determine formatting classes to use
     $classes = [];
 
     if ($formatting -> bold) {
         $classes[] = "esc-emphasis";
     }
+    if ($formatting -> widthMultiple > 1 || $formatting -> heightMultiple > 1) {
+        $classes[] = "esc-text-scaled";
+        // Add a single class representing height and width scaling
+        $widthClass = $formatting -> widthMultiple > 1 ? "-width-" . $formatting -> widthMultiple : "";
+        $heightClass = $formatting -> heightMultiple > 1 ? "-height-" . $formatting -> heightMultiple : "";
+        $classes[] = "esc" . $widthClass . $heightClass;
+    }
+
+    // Provide span content as HTML
+    if ($spanContentText === false) {
+        $spanContentHtml = "&nbsp;";
+    } else {
+        $spanContentHtml = htmlentities($spanContentText);
+    }
+
+    //str_replace(" ", "&nbsp;", htmlentities());
     
     // Output span with any non-default classes
     if (count($classes) == 0) {
-        return $text;
+        return $spanContentHtml;
     }
-    return "<span class=\"". implode($classes, " ") . "\">" . $text . "</span>";
+    return "<span class=\"". implode($classes, " ") . "\">" . $spanContentHtml . "</span>";
 }
