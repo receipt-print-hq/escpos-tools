@@ -4,7 +4,7 @@ This project is open to many different types of contribution. You can help with 
 
 ## Issue tracker
 
-Open issues of all sorts are tracked on the [issue tracker](https://github.com/receipt-print-hq/escpos-tools/issues). Please check [the docs](https://github.com/receipt-print-hq/escpos-tools/blob/development/doc/FAQ.md) before you post, and practice good [bug tracker etiquette](https://bugzilla.mozilla.org/page.cgi?id=etiquette.html) to keep it running smoothly.
+Open issues of all sorts are tracked on the [issue tracker](https://github.com/receipt-print-hq/escpos-tools/issues). Please check [the docs](https://github.com/receipt-print-hq/escpos-tools/blob/MASTER/README.md) before you post, and practice good [bug tracker etiquette](https://bugzilla.mozilla.org/page.cgi?id=etiquette.html) to keep it running smoothly.
 
 Issues are [loosely categorised](https://github.com/receipt-print-hq/escpos-tools/labels), and will stay open while there is still something that can be resolved.
 
