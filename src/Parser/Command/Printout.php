@@ -66,7 +66,7 @@ class Printout extends Command
 
                 ),
                 'L' => 'GraphicsDataCmd',
-                'k' => 'Code2dDataCmd'
+                'k' => 'Code2DDataCmd'
             ),
             'h' => 'SetBarcodeHeightCmd',
             'H' => 'SelectHriPrintPosCmd',

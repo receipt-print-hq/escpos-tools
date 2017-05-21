@@ -13,3 +13,47 @@
 .esc-emphasis {
   font-weight: bold;
 }
+
+.esc-justify-center .esc-text-scaled {
+    transform-origin: 50% 0;
+}
+
+.esc-justify-right .esc-text-scaled {
+    transform-origin: 100% 0;
+}
+
+.esc-justify-center {
+    text-align: center;
+}
+
+.esc-justify-right {
+    text-align: right;
+}
+
+.esc-text-scaled {
+   display: inline-block;
+   transform-origin: 0 0;
+}
+
+span {
+    display: inline-block;
+}
+
+/*
+TODO
+- Generate height/width mixes up to 8x8
+- Figure out how do display multiple height/widths inline correctly
+*/
+.esc-width-2 {
+    transform: scale(2, 1);
+}
+
+.esc-height-2 {
+    transform: scale(1, 2);
+    margin-bottom: 1em;
+}
+
+.esc-width-2-height-2 {
+    transform: scale(2, 2);
+    margin-bottom: 1em;
+}
