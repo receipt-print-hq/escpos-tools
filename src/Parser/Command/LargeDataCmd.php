@@ -45,4 +45,9 @@ abstract class LargeDataCmd extends EscposCommand
     {
         return new UnknownDataSubCmd($len);
     }
+    
+    public function subCommand() {
+        // TODO rename and take getSubCommand() name.
+        return $this -> subCommand;
+    }
 }
