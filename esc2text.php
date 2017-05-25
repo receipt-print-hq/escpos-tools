@@ -44,6 +44,7 @@ foreach ($commands as $cmd) {
             echo "[ Image $desc ]\n";
             $imgNo = $imgNo + 1;
             file_put_contents("img-$imgNo.pbm", $bufferedImg -> asPbm());
+            file_put_contents("img-$imgNo.png", $bufferedImg -> asPng());
             $bufferedImg = null;
         }
     }

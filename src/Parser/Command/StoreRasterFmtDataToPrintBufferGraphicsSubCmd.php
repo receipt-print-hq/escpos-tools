@@ -3,6 +3,7 @@ namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
 use ReceiptPrintHq\EscposTools\Parser\Command\Command;
 use ReceiptPrintHq\EscposTools\Parser\Command\DataSubCmd;
+use \Imagick;
 
 class StoreRasterFmtDataToPrintBufferGraphicsSubCmd extends DataSubCmd
 {
@@ -71,5 +72,15 @@ class StoreRasterFmtDataToPrintBufferGraphicsSubCmd extends DataSubCmd
     public function asPbm()
     {
         return "P4\n" . $this -> getWidth() . " " . $this -> getHeight() . "\n" . $this -> data;
+    }
+    
+    public function asPng()
+    {
+        $pbmBlob = $this -> asPbm();
+        $im = new Imagick();
+        $im -> readImageBlob($pbmBlob, 'pbm');
+        $im->setResourceLimit(6, 1); // Prevent libgomp1 segfaults, grumble grumble.
+        $im -> setFormat('png');
+        return $im -> getImageBlob();
     }
 }
