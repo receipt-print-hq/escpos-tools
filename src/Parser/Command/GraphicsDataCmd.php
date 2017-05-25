@@ -13,7 +13,7 @@ class GraphicsDataCmd extends DataCmd
     
     public static function subCommandLookup($m, $fn, $len)
     {
-        if($fn === 0 || $fn === 48) {
+        if ($fn === 0 || $fn === 48) {
             return new UnknownDataSubCmd($len);
         } else if ($fn === 1 || $fn === 49) {
             return new UnknownDataSubCmd($len);

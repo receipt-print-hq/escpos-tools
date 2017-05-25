@@ -156,7 +156,8 @@ class Printout extends Command
         }
     }
     
-    public function logUnknownCommand(array $searchStack) {
+    public function logUnknownCommand(array $searchStack)
+    {
         $nonPrintableMap = array(
             NUL => "NUL",
             HT => "HT",
@@ -170,8 +171,8 @@ class Printout extends Command
             CAN => "CAN"
         );
         $cmdStack = [];
-        foreach($searchStack as $s) {
-            if(isset($nonPrintableMap[$s])) {
+        foreach ($searchStack as $s) {
+            if (isset($nonPrintableMap[$s])) {
                 $cmdStack[] = $nonPrintableMap[$s];
             } else {
                 $cmdStack[] = $s;

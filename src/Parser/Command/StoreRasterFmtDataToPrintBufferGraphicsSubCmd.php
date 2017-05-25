@@ -27,28 +27,28 @@ class StoreRasterFmtDataToPrintBufferGraphicsSubCmd extends DataSubCmd
 
     public function addChar($char)
     {
-        if($this -> tone == null) {
+        if ($this -> tone == null) {
             $this -> tone = ord($char);
             return true;
-        } else if($this -> color === null) {
+        } else if ($this -> color === null) {
             $this -> color = ord($char);
             return true;
-        } else if($this -> widthMultiple === null) {
+        } else if ($this -> widthMultiple === null) {
             $this -> widthMultiple = ord($char);
             return true;
-        } else if($this -> heightMultiple === null) {
+        } else if ($this -> heightMultiple === null) {
             $this -> heightMultiple = ord($char);
             return true;
-        } else if($this -> x1 === null) {
+        } else if ($this -> x1 === null) {
             $this -> x1 = ord($char);
             return true;
-        } else if($this -> x2 === null) {
+        } else if ($this -> x2 === null) {
             $this -> x2 = ord($char);
             return true;
-        } else if($this -> y1 === null) {
+        } else if ($this -> y1 === null) {
             $this -> y1 = ord($char);
             return true;
-        } else if($this -> y2 === null) {
+        } else if ($this -> y2 === null) {
             $this -> y2 = ord($char);
             return true;
         } else if (strlen($this -> data) < $this -> dataSize) {
@@ -58,11 +58,13 @@ class StoreRasterFmtDataToPrintBufferGraphicsSubCmd extends DataSubCmd
         return false;
     }
 
-    public function getWidth() {
+    public function getWidth()
+    {
         return $this -> x1 + $this -> x2 * 256;
     }
     
-    public function getHeight() {
+    public function getHeight()
+    {
         return $this -> y1 + $this -> y2 * 256;
     }
 }

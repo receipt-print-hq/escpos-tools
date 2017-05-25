@@ -34,9 +34,9 @@ foreach ($commands as $cmd) {
         fwrite(STDERR, "[DEBUG] $className {$implStr}\n");
     }
     // ** Graphics code below is preview only ** //
-    if($cmd -> isAvailableAs('GraphicsDataCmd') || $cmd -> isAvailableAs('GraphicsLargeDataCmd')) {
+    if ($cmd -> isAvailableAs('GraphicsDataCmd') || $cmd -> isAvailableAs('GraphicsLargeDataCmd')) {
         $sub = $cmd -> subCommand();
-        if($sub -> isAvailableAs('StoreRasterFmtDataToPrintBufferGraphicsSubCmd')) {
+        if ($sub -> isAvailableAs('StoreRasterFmtDataToPrintBufferGraphicsSubCmd')) {
             $bufferedImg = $sub;
         } else if ($sub -> isAvailableAs('PrintBufferredDataGraphicsSubCmd')) {
             $desc = $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
