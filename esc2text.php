@@ -22,6 +22,7 @@ $parser -> addFile($fp);
 // Extract text
 $commands = $parser -> getCommands();
 $bufferedImg = null;
+$imgNo = 0;
 foreach ($commands as $cmd) {
     if ($debug) {
         // Debug output if requested. List commands and the interface for retrieving the data.
@@ -41,6 +42,8 @@ foreach ($commands as $cmd) {
         } else if ($sub -> isAvailableAs('PrintBufferredDataGraphicsSubCmd')) {
             $desc = $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
             echo "[ Image $desc ]\n";
+            $imgNo = $imgNo + 1;
+            file_put_contents("img-$imgNo.pbm", $bufferedImg -> asPbm());
             $bufferedImg = null;
         }
     }

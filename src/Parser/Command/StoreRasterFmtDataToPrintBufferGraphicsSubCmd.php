@@ -67,4 +67,9 @@ class StoreRasterFmtDataToPrintBufferGraphicsSubCmd extends DataSubCmd
     {
         return $this -> y1 + $this -> y2 * 256;
     }
+    
+    public function asPbm()
+    {
+        return "P4\n" . $this -> getWidth() . " " . $this -> getHeight() . "\n" . $this -> data;
+    }
 }
