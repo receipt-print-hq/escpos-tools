@@ -8,7 +8,12 @@ php:
 install:
   - composer install
 
+before_script:
+  - printf "\n" | pecl install imagick
+
 script:
   - php vendor/bin/phpcs --standard=psr2 --ignore=vendor -n .
   - php esc2text.php receipt-with-logo.bin
   - php esc2html.php receipt-with-logo.bin
+  - php escimages.php receipt-with-logo.bin
+

@@ -32,7 +32,6 @@ foreach ($commands as $cmd) {
         $implStr = count($impl) == 0 ? "" : "(" . implode(", ", $impl) . ")";
         fwrite(STDERR, "[DEBUG] $className {$implStr}\n");
     }
-    
     if ($cmd -> isAvailableAs('TextContainer')) {
         echo $cmd -> getText();
     }

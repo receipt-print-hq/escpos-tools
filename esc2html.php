@@ -24,6 +24,8 @@ $commands = $parser -> getCommands();
 $formatting = InlineFormatting::getDefault();
 $outp = array();
 $lineHtml = "";
+$bufferedImg = null;
+$imgNo = 0;
 foreach ($commands as $cmd) {
     if ($cmd -> isAvailableAs('InitializeCmd')) {
         $formatting = InlineFormatting::getDefault();
@@ -43,16 +45,27 @@ foreach ($commands as $cmd) {
             $lineHtml = span($formatting);
         }
         // Block-level formatting such as text justification
-        $classes = ["esc-line"];
-        if ($formatting -> justification === InlineFormatting::JUSTIFY_CENTER) {
-            $classes[] = "esc-justify-center";
-        } else if ($formatting -> justification === InlineFormatting::JUSTIFY_RIGHT) {
-            $classes[] = "esc-justify-right";
-        }
-
+        $classes = getBlockClasses($formatting);
         $classesStr = implode($classes, " ");
         $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", $lineHtml);
         $lineHtml = "";
+    }
+    if ($cmd -> isAvailableAs('GraphicsDataCmd') || $cmd -> isAvailableAs('GraphicsLargeDataCmd')) {
+        $sub = $cmd -> subCommand();
+        if ($sub -> isAvailableAs('StoreRasterFmtDataToPrintBufferGraphicsSubCmd')) {
+            $bufferedImg = $sub;
+        } else if ($sub -> isAvailableAs('PrintBufferredDataGraphicsSubCmd') && $bufferedImg !== null) {
+            $imgAlt = "Image " . $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
+            $imgSrc = "data:image/png;base64," . base64_encode($bufferedImg -> asPng());
+            $imgWidth = $bufferedImg -> getWidth() / 2; // scaling, images are quite high res and dwarf the text
+            $bufferedImg = null;
+            $lineHtml .= "<img src=\"$imgSrc\" alt=\"$imgAlt\" width=\"${imgWidth}px\" />";
+            // Append and flush buffer
+            $classes = getBlockClasses($formatting);
+            $classesStr = implode($classes, " ");
+            $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", $lineHtml);
+            $lineHtml = "";
+        }
     }
 }
 
@@ -131,4 +144,15 @@ function span(InlineFormatting $formatting, $spanContentText = false)
         return $spanContentHtml;
     }
     return "<span class=\"". implode($classes, " ") . "\">" . $spanContentHtml . "</span>";
+}
+
+function getBlockClasses($formatting)
+{
+    $classes = ["esc-line"];
+    if ($formatting -> justification === InlineFormatting::JUSTIFY_CENTER) {
+        $classes[] = "esc-justify-center";
+    } else if ($formatting -> justification === InlineFormatting::JUSTIFY_RIGHT) {
+        $classes[] = "esc-justify-right";
+    }
+    return $classes;
 }

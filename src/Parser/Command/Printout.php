@@ -66,14 +66,21 @@ class Printout extends Command
 
                 ),
                 'L' => 'GraphicsDataCmd',
-                'k' => 'Code2DDataCmd'
+                'k' => 'Code2DDataCmd',
+                // Don't know what this command is, but could be a data command
+                'J' => 'UnknownDataCmd',
             ),
             'h' => 'SetBarcodeHeightCmd',
             'H' => 'SelectHriPrintPosCmd',
             'k' => 'PrintBarcodeCmd',
             'v' => array(
                 '0' => 'PrintRasterBitImageCmd'
-            )
+            ),
+            '8' => array(
+                'L' => 'GraphicsLargeDataCmd'
+            ),
+            // Set horizontal and vertical motion units. args are x and y
+            'P' => 'CommandTwoArgs'
         ),
         FS => array(
 
@@ -136,7 +143,7 @@ class Printout extends Command
         $this -> searchStack[] = $char;
         if (!isset($this -> search[$char])) {
             // Failed to match a command
-            echo "WARNING: Unknown command " . implode($this -> searchStack) . "\n";
+            $this -> logUnknownCommand($this -> searchStack);
             $this -> reset();
         } elseif (is_array($this -> search[$char])) {
             // Command continues after this
@@ -147,5 +154,30 @@ class Printout extends Command
             $this -> commands[] = new $class($this -> context, $this -> searchStack);
             $this -> reset();
         }
+    }
+    
+    public function logUnknownCommand(array $searchStack)
+    {
+        $nonPrintableMap = array(
+            NUL => "NUL",
+            HT => "HT",
+            LF => "LF",
+            FF => "FF",
+            CR => "CR",
+            ESC => "ESC",
+            GS => "GS",
+            FS => "FS",
+            DLE => "DLE",
+            CAN => "CAN"
+        );
+        $cmdStack = [];
+        foreach ($searchStack as $s) {
+            if (isset($nonPrintableMap[$s])) {
+                $cmdStack[] = $nonPrintableMap[$s];
+            } else {
+                $cmdStack[] = $s;
+            }
+        }
+        fwrite(STDERR, "WARNING: Unknown command " . implode($cmdStack, ' ') . "\n");
     }
 }
