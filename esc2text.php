@@ -21,8 +21,6 @@ $parser -> addFile($fp);
 
 // Extract text
 $commands = $parser -> getCommands();
-$bufferedImg = null;
-$imgNo = 0;
 foreach ($commands as $cmd) {
     if ($debug) {
         // Debug output if requested. List commands and the interface for retrieving the data.
@@ -34,21 +32,6 @@ foreach ($commands as $cmd) {
         $implStr = count($impl) == 0 ? "" : "(" . implode(", ", $impl) . ")";
         fwrite(STDERR, "[DEBUG] $className {$implStr}\n");
     }
-    // ** Graphics code below is preview only ** //
-    if ($cmd -> isAvailableAs('GraphicsDataCmd') || $cmd -> isAvailableAs('GraphicsLargeDataCmd')) {
-        $sub = $cmd -> subCommand();
-        if ($sub -> isAvailableAs('StoreRasterFmtDataToPrintBufferGraphicsSubCmd')) {
-            $bufferedImg = $sub;
-        } else if ($sub -> isAvailableAs('PrintBufferredDataGraphicsSubCmd')) {
-            $desc = $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
-            echo "[ Image $desc ]\n";
-            $imgNo = $imgNo + 1;
-            file_put_contents("img-$imgNo.pbm", $bufferedImg -> asPbm());
-            file_put_contents("img-$imgNo.png", $bufferedImg -> asPng());
-            $bufferedImg = null;
-        }
-    }
-    // ** Graphics code above is preview only ** //
     if ($cmd -> isAvailableAs('TextContainer')) {
         echo $cmd -> getText();
     }
