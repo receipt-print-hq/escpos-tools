@@ -57,3 +57,7 @@ TODO
     transform: scale(2, 2);
     margin-bottom: 1em;
 }
+
+.esc-bitimage {
+	display: block;
+}
