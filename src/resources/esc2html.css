@@ -36,8 +36,8 @@
 }
 
 .esc-justify-center .esc-bitimage {
-	margin-left: auto;
-	margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .esc-justify-right .esc-bitimage {
@@ -68,5 +68,5 @@ TODO
 }
 
 .esc-bitimage {
-	display: block;
+    display: block;
 }
