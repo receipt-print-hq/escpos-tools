@@ -19,7 +19,7 @@ php escimages.php FILE
 
 ## Example
 
-````
+```
 $ php esc2text.php receipt-with-logo.bin
 ```
 
