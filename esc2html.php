@@ -59,7 +59,7 @@ foreach ($commands as $cmd) {
             $imgSrc = "data:image/png;base64," . base64_encode($bufferedImg -> asPng());
             $imgWidth = $bufferedImg -> getWidth() / 2; // scaling, images are quite high res and dwarf the text
             $bufferedImg = null;
-            $lineHtml .= "<img src=\"$imgSrc\" alt=\"$imgAlt\" width=\"${imgWidth}px\" />";
+            $lineHtml .= "<img class=\"esc-bitimage\" src=\"$imgSrc\" alt=\"$imgAlt\" width=\"${imgWidth}px\" />";
             // Append and flush buffer
             $classes = getBlockClasses($formatting);
             $classesStr = implode($classes, " ");

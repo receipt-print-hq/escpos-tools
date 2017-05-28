@@ -35,6 +35,15 @@
    transform-origin: 0 0;
 }
 
+.esc-justify-center .esc-bitimage {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.esc-justify-right .esc-bitimage {
+    margin-left: auto;
+}
+
 span {
     display: inline-block;
 }
@@ -56,4 +65,8 @@ TODO
 .esc-width-2-height-2 {
     transform: scale(2, 2);
     margin-bottom: 1em;
+}
+
+.esc-bitimage {
+    display: block;
 }
