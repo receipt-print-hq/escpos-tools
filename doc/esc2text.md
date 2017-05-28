@@ -22,7 +22,7 @@ php esc2text.php FILE [ -v ]
 
 ## Example
 
-````
+```
 $ php esc2text.php receipt-with-logo.bin
 ExampleMart Ltd.
 Shop No. 42.
@@ -42,7 +42,7 @@ Thank you for shopping at ExampleMart
 For trading hours, please visit example.com
 
 Monday 6th of April 2015 02:56:25 PM
-````
+```
 
 The same binary data, when sent to a printer, renders as below:
 

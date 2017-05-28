@@ -20,7 +20,7 @@ php esc2html FILE
 
 ## Example
 
-````
+```
 $ php esc2html.php receipt-with-logo.bin > receipt-with-logo.html
 ```
 
