@@ -6,55 +6,48 @@ binary ESC/POS data. ESC/POS is a page description language that is commonly
 used for receipt printing.
 
 Currently we have a prototype ESC/POS parser, which can extract the commands
-contained in printable ESC/POS binary data, and print the text in a receipt.
+contained in printable ESC/POS binary data, and render them to various formats.
 
-### Quick start
+## Quick start
+
+This project is requires:
+
+- PHP 5.6 or better
+- The `mbstring` and `imagick` extensions
+- [composer](https://getcomposer.org/)
+
+To install from source:
 
 ```bash
+git clone https://github.com/receipt-print-hq/escpos-tools
+cd escpos-tools
 composer install
 ```
 
-### esc2text utility
-`esc2text` will simply extract text and line breaks. Add `-v` as the last argument to see all the
-other commands being skipped over.
+## Included utilities
 
-````
-$ php esc2text.php receipt-with-logo.bin
-ExampleMart Ltd.
-Shop No. 42.
+### esc2text
 
-SALES INVOICE
-                                               $
-Example item #1                             4.00
-Another thing                               3.50
-Something else                              1.00
-A final item                                4.45
-Subtotal                                   12.95
+`esc2text` extracts text and line breaks from binary ESC/POS files.
 
-A local tax                                 1.30
-Total            $ 14.25
+- [esc2text documentation](doc/esc2text.md)
 
-Thank you for shopping at ExampleMart
-For trading hours, please visit example.com
+### esc2html
 
-Monday 6th of April 2015 02:56:25 PM
-````
+`esc2html` converts binary ESC/POS files to HTML.
 
-The same binary data can be sent to a printer:
+- [esc2html documentation](doc/esc2html.md)
 
-```
-$ cat receipt-with-logo.bin > /dev/usb/lp0 
-```
+### escimages
 
-![receipt-with-logo-small.png](https://raw.githubusercontent.com/receipt-print-hq/escpos-tools/master/receipt-with-logo-small.png)
+`escimages` extracts graphics binary ESC/POS files in PBM and PNG format.
 
-The input file is generated via [escpos-php](https://github.com/mike42/escpos-php).
+- [escimages documentation](doc/escimages.md)
 
-### esc2html utility
+## Contribute
 
-`esc2html` convert an ESC/POS binary file to a HTML document. It is currently capable of rendering unformatted ASCII text.
+- [CONTRIBUTING.md](CONTRIBUTING.md)
 
-```
-$ php esc2html.php receipt-with-logo.bin > output.html
-```
+## Licensing
 
+- [LICENSE.md](LICENSE.md)
