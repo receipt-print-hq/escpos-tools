@@ -12,6 +12,8 @@ addons:
   apt:
     sources:
     - sourceline: 'ppa:mike42/mdcheckr'
+    packages:
+    - mdcheckr
 
 install:
   - composer install
