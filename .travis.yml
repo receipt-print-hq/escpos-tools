@@ -1,9 +1,19 @@
 ---
+dist: trusty
+sudo: false
+
 language: php
 
 php:
   - 5.6
   - 7.0
+
+addons:
+  apt:
+    sources:
+    - sourceline: 'ppa:mike42/mdcheckr'
+    packages:
+    - mdcheckr
 
 install:
   - composer install
@@ -12,7 +22,11 @@ before_script:
   - printf "\n" | pecl install imagick
 
 script:
+  # Check all PHP files with phpcs
   - php vendor/bin/phpcs --standard=psr2 --ignore=vendor -n .
+  # Check all *.md files in git with mdcheckr
+  - git ls-files | grep '\.md$' | tr '\n' '\0' | xargs -0 mdcheckr
+  # Run a few examples
   - php esc2text.php receipt-with-logo.bin
   - php esc2html.php receipt-with-logo.bin
   - php escimages.php receipt-with-logo.bin
