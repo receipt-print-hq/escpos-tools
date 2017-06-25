@@ -12,7 +12,7 @@ to see all the other commands for debugging purposes.
 
 This utility is included with escpos-tools. See the
 [escpos-tools documentation](https://github.com/receipt-print-hq/escpos-tools)
-documentation for installation instructions.
+for installation instructions.
 
 ## Usage
 
