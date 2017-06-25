@@ -3,13 +3,13 @@
 `escimages` extracts raster images from binary ESC/POS files.
 
 All non-graphical elements of the receipt are ignored, and a pair of files is
-written in PBM and PNG format for each image found in the source file.
+written (in PBM and PNG format) for each image found in the source file.
 
 ## Installation
 
 This utility is included with escpos-tools. See the
 [escpos-tools documentation](https://github.com/receipt-print-hq/escpos-tools)
-documentation for installation instructions.
+for installation instructions.
 
 ## Usage
 
@@ -20,7 +20,7 @@ php escimages.php FILE
 ## Example
 
 ```
-$ php esc2text.php receipt-with-logo.bin
+$ php escimages.php receipt-with-logo.bin
 ```
 
 The raster image from the input receipt is extracted:
@@ -30,7 +30,7 @@ The raster image from the input receipt is extracted:
 The same binary data, when sent to a printer, renders as below:
 
 ```
-$ cat receipt-with-logo.bin > /dev/usb/lp0 
+$ cat receipt-with-logo.bin > /dev/usb/lp0
 ```
 
 ![receipt-with-logo-small.png](https://raw.githubusercontent.com/receipt-print-hq/escpos-tools/master/doc/receipt-with-logo-small.png)
@@ -58,4 +58,3 @@ convert -append *.pbm pbm:- | tesseract - -
 
 - [esc2html](esc2html.md)
 - [esc2text](esc2text.md)
-

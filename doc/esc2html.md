@@ -1,6 +1,7 @@
 # esc2html
 
-`esc2html` converts an ESC/POS binary file into a HTML document. It is currently capable of rendering unformatted ASCII text.
+`esc2html` converts an ESC/POS binary file into a HTML document. It is currently capable of rendering some types of
+formatting and images, plus any ASCII text in the input file.
 
 ```
 $ php esc2html.php receipt-with-logo.bin > output.html
@@ -9,8 +10,7 @@ $ php esc2html.php receipt-with-logo.bin > output.html
 ## Installation
 
 This utility is included with escpos-tools. See the
-[escpos-tools documentation](https://github.com/receipt-print-hq/escpos-tools)
-documentation for installation instructions.
+[escpos-tools documentation](https://github.com/receipt-print-hq/escpos-tools) for installation instructions.
 
 ## Usage
 
