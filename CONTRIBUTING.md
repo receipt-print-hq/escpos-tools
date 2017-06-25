@@ -4,7 +4,7 @@ This project is open to many different types of contribution. You can help with 
 
 ## Issue tracker
 
-Open issues of all sorts are tracked on the [issue tracker](https://github.com/receipt-print-hq/escpos-tools/issues). Please check [the docs](https://github.com/receipt-print-hq/escpos-tools/blob/MASTER/README.md) before you post, and practice good [bug tracker etiquette](https://bugzilla.mozilla.org/page.cgi?id=etiquette.html) to keep it running smoothly.
+Open issues of all sorts are tracked on the [issue tracker](https://github.com/receipt-print-hq/escpos-tools/issues). Please check [the docs](https://github.com/receipt-print-hq/escpos-tools/blob/master/README.md) before you post, and practice good [bug tracker etiquette](https://bugzilla.mozilla.org/page.cgi?id=etiquette.html) to keep it running smoothly.
 
 Issues are [loosely categorised](https://github.com/receipt-print-hq/escpos-tools/labels), and will stay open while there is still something that can be resolved.
 
@@ -49,4 +49,3 @@ Code style can be checked via [PHP_CodeSniffer](https://github.com/squizlabs/PHP
     php vendor/bin/phpcs --standard=psr2 src/ -n
 
 The CI scripts currently just render a few receipts to check for obvious errors. You can find the commands to run locally in `travis.yml`.
-
