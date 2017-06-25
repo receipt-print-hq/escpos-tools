@@ -8,8 +8,20 @@ use ReceiptPrintHq\EscposTools\Parser\Parser;
 
 // Usage
 if (!isset($argv[1])) {
-    print("Usage: " . $argv[0] . " filename\n");
+    print("Usage: " . $argv[0] . " filename(string) outputdir(string) outputpng(boolean)\n");
     die();
+}
+if (isset($argv[2]) && !is_dir($argv[2])) {
+    print("Error: output dir must be a valid path if used\n");
+    die();
+}
+if (isset($argv[3]) && !is_numeric($argv[3]) && $argv[3] > 1) {
+    print("Error: outputpng must be 1 or 0 \n");
+    die();
+}
+else
+{
+    $argv[3] = (bool)$argv[3];
 }
 
 // Load in a file
@@ -31,8 +43,11 @@ foreach ($commands as $cmd) {
             $desc = $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
             $imgNo = $imgNo + 1;
             echo "[ Image $imgNo: $desc ]\n";
-            file_put_contents("img-$imgNo.pbm", $bufferedImg -> asPbm());
-            file_put_contents("img-$imgNo.png", $bufferedImg -> asPng());
+            file_put_contents($argv[2]."img-$imgNo.pbm", $bufferedImg -> asPbm());
+            if(isset($argv[3]) && $argv[3] == TRUE)
+            {
+                file_put_contents($argv[2]."img-$imgNo.png", $bufferedImg -> asPng());
+            }
             $bufferedImg = null;
         }
     }
