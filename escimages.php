@@ -6,26 +6,19 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use ReceiptPrintHq\EscposTools\Parser\Parser;
 
-// Usage
-if (!isset($argv[1])) {
-    print("Usage: " . $argv[0] . " filename(string) outputdir(string) outputpng(boolean)\n");
-    die();
-}
-if (isset($argv[2]) && !is_dir($argv[2])) {
-    print("Error: output dir must be a valid path if used\n");
-    die();
-}
-if (isset($argv[3]) && !is_numeric($argv[3]) && $argv[3] > 1) {
-    print("Error: outputpng must be 1 or 0 \n");
-    die();
-}
-else
-{
-    $argv[3] = (bool)$argv[3];
+$shortopts = "f:o:h";
+$longopts  = array(
+    "pbmonly"
+);
+
+$options = getopt($shortopts, $longopts);
+if (empty($options) || array_key_exists("h", $options) || !array_key_exists("f", $options)) { 
+    print "Usage " . $argv[0] . " -f '/path/to/binary/file' -o '/path/to/output/dir' --pbmonly\n";
+    die(); 
 }
 
 // Load in a file
-$fp = fopen($argv[1], 'rb');
+$fp = fopen($options['f'], 'rb');
 
 $parser = new Parser();
 $parser -> addFile($fp);
@@ -43,9 +36,8 @@ foreach ($commands as $cmd) {
             $desc = $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
             $imgNo = $imgNo + 1;
             echo "[ Image $imgNo: $desc ]\n";
-            file_put_contents($argv[2]."img-$imgNo.pbm", $bufferedImg -> asPbm());
-            if(isset($argv[3]) && $argv[3] == TRUE)
-            {
+            (array_key_exists("o", $options)) ? file_put_contents($options['o']."img-$imgNo.pbm", $bufferedImg -> asPbm()) : file_put_contents("img-$imgNo.pbm", $bufferedImg -> asPbm());
+            if(!array_key_exists("pbmonly", $options)) {
                 file_put_contents($argv[2]."img-$imgNo.png", $bufferedImg -> asPng());
             }
             $bufferedImg = null;
