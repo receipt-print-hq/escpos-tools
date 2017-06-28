@@ -6,19 +6,86 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 use ReceiptPrintHq\EscposTools\Parser\Parser;
 
+// Read CLI options in
 $shortopts = "f:o:h";
 $longopts  = array(
-    "pbmonly"
+    "file:",
+    "output-dir:",
+    "png",
+    "pbm",
+    "help"
 );
-
 $options = getopt($shortopts, $longopts);
-if (empty($options) || array_key_exists("h", $options) || !array_key_exists("f", $options)) { 
-    print "Usage " . $argv[0] . " -f '/path/to/binary/file' -o '/path/to/output/dir' --pbmonly\n";
-    die(); 
+$usage = "Usage: " . $argv[0] . " OPTIONS --file 'filename'\n";
+// Input file
+$inputFile = null;
+$inputFile = array_key_exists("f", $options) ? $options["f"] : $inputFile;
+$inputFile = array_key_exists("file", $options) ? $options["file"] : $inputFile;
+// Output dir
+$outputDir = ".";
+$outputDir = array_key_exists("o", $options) ? $options["o"] : $outputDir;
+$outputDir = array_key_exists("output-dir", $options) ? $options["output-dir"] : $outputDir;
+// Help
+$showHelp = array_key_exists("h", $options) || array_key_exists("help", $options);
+// Output formats
+$outputPng = array_key_exists("png", $options);
+$outputPbm = array_key_exists("pbm", $options);
+if (!$outputPng && !$outputPbm) {
+  // Default
+    $outputPng = true;
 }
 
+if (empty($options) || ( $inputFile === null && !$showHelp)) {
+  // Incorrect usage shows error and quits nonzero
+    $error = "$usage\nTry '" . $argv[0] . " --help' for more information.\n";
+    file_put_contents("php://stderr", $error);
+    exit(1);
+}
+if (array_key_exists("h", $options) || array_key_exists("help", $options)) {
+  // Request for help
+    $message = "$usage
+ Required options:
+
+  -f, --file FILE             The input file to read.
+
+ Output options:
+
+  -o, --output-dir DIRECTORY  The directory to write output files to.
+
+ Output format:
+
+  Select one or more formats for output. If none is specified, then PNG is used.
+
+  --png                        Write output files in PNG format.
+  --pbm                        Write output files in PBM format.
+
+ Other options:
+  -h, --help                   Show this help\n";
+    echo $message;
+    exit(0);
+}
+
+// Quick validation
+if (!file_exists($outputDir) || !is_dir($outputDir)) {
+    $error = "Output location does not exist, or is not a directory.\n";
+    file_put_contents("php://stderr", $error);
+    exit(1);
+}
+$outputDir = rtrim($outputDir, '/');
+if (!file_exists($inputFile) || !is_readable($inputFile)) {
+    $error = "Input file does not exist, or is not readable.\n";
+    file_put_contents("php://stderr", $error);
+    exit(1);
+}
+$receiptName = $path_parts = pathinfo($inputFile)['filename'];
+
 // Load in a file
-$fp = fopen($options['f'], 'rb');
+$fp = @fopen($inputFile, 'rb');
+if (!$fp) {
+    $error = "Failed to open the input file\n";
+    file_put_contents("php://stderr", $error);
+    exit(1);
+}
 
 $parser = new Parser();
 $parser -> addFile($fp);
@@ -36,9 +103,12 @@ foreach ($commands as $cmd) {
             $desc = $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
             $imgNo = $imgNo + 1;
             echo "[ Image $imgNo: $desc ]\n";
-            (array_key_exists("o", $options)) ? file_put_contents($options['o']."img-$imgNo.pbm", $bufferedImg -> asPbm()) : file_put_contents("img-$imgNo.pbm", $bufferedImg -> asPbm());
-            if(!array_key_exists("pbmonly", $options)) {
-                file_put_contents($argv[2]."img-$imgNo.png", $bufferedImg -> asPng());
+            $outpFilename = $outputDir . '/' . "$receiptName-" . sprintf('%02d', $imgNo);
+            if ($outputPbm) {
+                file_put_contents($outpFilename . ".pbm", $bufferedImg -> asPbm());
+            }
+            if ($outputPng) {
+                file_put_contents($outpFilename . ".png", $bufferedImg -> asPng());
             }
             $bufferedImg = null;
         }

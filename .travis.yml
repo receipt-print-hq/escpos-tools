@@ -29,5 +29,5 @@ script:
   # Run a few examples
   - php esc2text.php receipt-with-logo.bin
   - php esc2html.php receipt-with-logo.bin
-  - php escimages.php receipt-with-logo.bin
+  - php escimages.php -f receipt-with-logo.bin
 
