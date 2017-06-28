@@ -14,16 +14,35 @@ for installation instructions.
 ## Usage
 
 ```
-php escimages.php FILE
+Usage: escimages.php OPTIONS --file 'filename'
+
+ Required options:
+
+  -f, --file FILE             The input file to read.
+
+ Output options:
+
+  -o, --output-dir DIRECTORY  The directory to write output files to.
+
+ Output format:
+
+  Select one or more formats for output. If none is specified, then PNG is used.
+
+  --png                        Write output files in PNG format.
+  --pbm                        Write output files in PBM format.
+
+ Other options:
+  -h, --help                   Show this help
+
 ```
 
 ## Example
 
 ```
-$ php escimages.php receipt-with-logo.bin
+$ php escimages.php -f receipt-with-logo.bin
 ```
 
-The raster image from the input receipt is extracted:
+The raster image from the input receipt is extracted in PNG format:
 
 ![receipt-with-logo-img.png](https://raw.githubusercontent.com/receipt-print-hq/escpos-tools/master/doc/receipt-with-logo-img.png)
 
@@ -50,7 +69,7 @@ For example, using `tesseract`:
 
 ```
 rm *.pbm
-php escimages.php input.bin
+php escimages.php -f input.bin --pbm
 convert -append *.pbm pbm:- | tesseract - -
 ```
 
