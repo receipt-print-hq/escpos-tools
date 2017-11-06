@@ -37,6 +37,7 @@ class Printout extends Command
             ),
             '2' => 'SelectDefaultLineSpacingCmd',
             '3' => 'SelectLineSpacingCmd',
+            'r' => 'SelectAlternateColorCmd',
             'R' => 'SelectInternationalCharacterSetCmd',
             't' => 'SelectCodeTableCmd',
             'J' => 'PrintAndFeedCmd',
