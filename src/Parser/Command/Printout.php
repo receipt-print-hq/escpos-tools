@@ -71,7 +71,9 @@ class Printout extends Command
                 // Don't know what this command is, but could be a data command
                 'J' => 'UnknownDataCmd',
             ),
+            'I' => 'TransmitPrinterID',
             'h' => 'SetBarcodeHeightCmd',
+            'w' => 'SetBarcodeWidthCmd',
             'H' => 'SelectHriPrintPosCmd',
             'k' => 'PrintBarcodeCmd',
             'v' => array(
@@ -84,7 +86,8 @@ class Printout extends Command
             'P' => 'CommandTwoArgs'
         ),
         FS => array(
-
+            '.' => 'CancelKanjiCharacterMode',
+            'C' => 'SelectKanjiCharacterCode'
         ),
         DLE => array(
 
