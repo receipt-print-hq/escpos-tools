@@ -119,7 +119,7 @@ function span(InlineFormatting $formatting, $spanContentText = false)
     
    
     // Determine formatting classes to use
-    $classes = [];
+    $classes = array();
 
     if ($formatting -> bold) {
         $classes[] = "esc-emphasis";
