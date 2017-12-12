@@ -109,7 +109,7 @@ class Printout extends Command
     public function reset()
     {
         $this -> search = null;
-        $this -> searchStack = [];
+        $this -> searchStack = array();
     }
 
     public function addChar($char)
@@ -174,7 +174,7 @@ class Printout extends Command
             DLE => "DLE",
             CAN => "CAN"
         );
-        $cmdStack = [];
+        $cmdStack = array();
         foreach ($searchStack as $s) {
             if (isset($nonPrintableMap[$s])) {
                 $cmdStack[] = $nonPrintableMap[$s];
