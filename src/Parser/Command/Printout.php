@@ -52,6 +52,7 @@ class Printout extends Command
             'p' => 'PulseCmd'
         ),
         GS => array(
+            '\\' => 'SetRelativeVerticalPrintPositionCmd', // low and high values for vertrical print position (page mode)
             '!' => 'SelectCharacterSizeCmd',
             'V' => 'FeedAndCutCmd',
             'b' => 'EnableSmoothingCmd',
