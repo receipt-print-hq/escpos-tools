@@ -5,7 +5,7 @@ use ReceiptPrintHq\EscposTools\Parser\Command\Command;
 use ReceiptPrintHq\EscposTools\Parser\Command\DataSubCmd;
 use \Imagick;
 
-class StoreRasterFmtDataToPrintBufferGraphicsSubCmd extends DataSubCmd
+class StoreRasterFmtDataToPrintBufferGraphicsSubCmd extends DataSubCmd implements ImageContainer
 {
     private $tone = null;
     private $color = null;

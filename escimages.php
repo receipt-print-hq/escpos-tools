@@ -5,6 +5,21 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use ReceiptPrintHq\EscposTools\Parser\Parser;
+use ReceiptPrintHq\EscposTools\Parser\Command\ImageContainer;
+
+function outpImg($outputDir, $imgNo, ImageContainer $img, $outputPbm, $outputPng, $receiptName)
+{
+    // Output an image
+    $desc = $img -> getWidth() . 'x' . $img -> getHeight();
+    echo "[ Image $imgNo: $desc ]\n";
+    $outpFilename = $outputDir . '/' . "$receiptName-" . sprintf('%02d', $imgNo);
+    if ($outputPbm) {
+        file_put_contents($outpFilename . ".pbm", $img -> asPbm());
+    }
+    if ($outputPng) {
+        file_put_contents($outpFilename . ".png", $img -> asPng());
+    }
+}
 
 // Read CLI options in
 $shortopts = "f:o:h";
@@ -98,20 +113,17 @@ foreach ($commands as $cmd) {
     if ($cmd -> isAvailableAs('GraphicsDataCmd') || $cmd -> isAvailableAs('GraphicsLargeDataCmd')) {
         $sub = $cmd -> subCommand();
         if ($sub -> isAvailableAs('StoreRasterFmtDataToPrintBufferGraphicsSubCmd')) {
+            // Assign image when stored
             $bufferedImg = $sub;
         } else if ($sub -> isAvailableAs('PrintBufferredDataGraphicsSubCmd')) {
-            $desc = $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
+            // Print assigned image
             $imgNo = $imgNo + 1;
-            echo "[ Image $imgNo: $desc ]\n";
-            $outpFilename = $outputDir . '/' . "$receiptName-" . sprintf('%02d', $imgNo);
-            if ($outputPbm) {
-                file_put_contents($outpFilename . ".pbm", $bufferedImg -> asPbm());
-            }
-            if ($outputPng) {
-                file_put_contents($outpFilename . ".png", $bufferedImg -> asPng());
-            }
+            outpImg($outputDir, $imgNo, $bufferedImg, $outputPbm, $outputPng, $receiptName);
             $bufferedImg = null;
         }
+    } else if ($cmd -> isAvailableAs('SelectBitImageModeCmd')) {
+        $imgNo = $imgNo + 1;
+        outpImg($outputDir, $imgNo, $cmd, $outputPbm, $outputPng, $receiptName);
     }
 }
 
