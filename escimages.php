@@ -7,7 +7,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 use ReceiptPrintHq\EscposTools\Parser\Parser;
 use ReceiptPrintHq\EscposTools\Parser\Command\ImageContainer;
 
-function outpImg($outputDir, $imgNo, ImageContainer $img, $outputPbm, $outputPng, $receiptName) {
+function outpImg($outputDir, $imgNo, ImageContainer $img, $outputPbm, $outputPng, $receiptName)
+{
     // Output an image
     $desc = $img -> getWidth() . 'x' . $img -> getHeight();
     echo "[ Image $imgNo: $desc ]\n";
@@ -120,7 +121,7 @@ foreach ($commands as $cmd) {
             outpImg($outputDir, $imgNo, $bufferedImg, $outputPbm, $outputPng, $receiptName);
             $bufferedImg = null;
         }
-    } else if($cmd -> isAvailableAs('SelectBitImageModeCmd')) {
+    } else if ($cmd -> isAvailableAs('SelectBitImageModeCmd')) {
         $imgNo = $imgNo + 1;
         outpImg($outputDir, $imgNo, $cmd, $outputPbm, $outputPng, $receiptName);
     }

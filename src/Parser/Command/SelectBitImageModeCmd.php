@@ -61,7 +61,8 @@ class SelectBitImageModeCmd extends EscposCommand implements ImageContainer
         return "P4\n" . $this -> getHeight() . " " . $this -> getWidth() . "\n" . $this -> data;
     }
     
-    public function asPbm() {
+    public function asPbm()
+    {
         // Reflect image diagonally from internally generated PBM
         $pbmBlob = $this -> asReflectedPbm();
         $im = new Imagick();
