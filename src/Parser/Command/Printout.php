@@ -26,6 +26,7 @@ class Printout extends Command
         CR => 'CarriageReturnCmd',
         ESC => array(
             '@' => 'InitializeCmd',
+            '*' => 'SelectBitImageModeCmd',
             '!' => 'SelectPrintModeCmd',
             '=' => 'SelectPeripheralDeviceCmd',
             'c' => array(
