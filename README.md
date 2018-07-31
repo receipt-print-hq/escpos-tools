@@ -40,7 +40,7 @@ composer install
 
 ### escimages
 
-`escimages` extracts graphics binary ESC/POS files in PBM and PNG format.
+`escimages` extracts graphics from binary ESC/POS files in PBM and PNG format.
 
 - [escimages documentation](doc/escimages.md)
 
