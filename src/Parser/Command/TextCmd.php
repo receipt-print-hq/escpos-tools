@@ -14,7 +14,7 @@ class TextCmd extends Command implements TextContainer
             // Reject ESC/POS control chars.
             return false;
         }
-        $this -> str .= $char;
+        $this -> str .= iconv('CP437', 'UTF-8', $char);
         return true;
     }
 
