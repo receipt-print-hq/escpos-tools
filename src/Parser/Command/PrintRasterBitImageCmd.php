@@ -2,14 +2,17 @@
 namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
 use ReceiptPrintHq\EscposTools\Parser\Command\EscposCommand;
+use Imagick;
 
-class PrintRasterBitImageCmd extends EscposCommand
+class PrintRasterBitImageCmd extends EscposCommand implements ImageContainer
 {
     private $m = null;
     private $xL = null;
     private $xH = null;
     private $yL = null;
     private $yH = null;
+    private $width = null;
+    private $height = null;
     private $dataLen = null;
     private $data = "";
 
@@ -40,9 +43,36 @@ class PrintRasterBitImageCmd extends EscposCommand
         }
         if ($this -> yH === null) {
             $this -> yH = ord($char);
-            $this -> dataLen = ($this -> xL + $this -> xH * 256) * ($this -> yL + $this -> yH * 256);
+            $this -> width = $this -> xL + $this -> xH * 256;
+            $this -> height = $this -> yL + $this -> yH * 256;
+            $this -> dataLen = $this -> width * $this -> height;
             return true;
         }
         return false;
+    }
+    public function getHeight()
+    {
+        return $this -> height;
+    }
+
+    public function asPbm()
+    {
+        return "P4\n" . $this -> getWidth() . " " . $this -> getHeight() . "\n" . $this -> data;
+    }
+
+    public function getWidth()
+    {
+        return $this -> width * 8;
+    }
+
+    public function asPng()
+    {
+        // Just a format conversion PBM -> PNG
+        $pbmBlob = $this -> asPbm();
+        $im = new Imagick();
+        $im -> readImageBlob($pbmBlob, 'pbm');
+        $im->setResourceLimit(6, 1); // Prevent libgomp1 segfaults, grumble grumble.
+        $im -> setFormat('png');
+        return $im -> getImageBlob();
     }
 }

@@ -26,6 +26,7 @@ $outp = array();
 $lineHtml = "";
 $bufferedImg = null;
 $imgNo = 0;
+$skipLineBreak = false;
 foreach ($commands as $cmd) {
     if ($cmd -> isAvailableAs('InitializeCmd')) {
         $formatting = InlineFormatting::getDefault();
@@ -39,7 +40,9 @@ foreach ($commands as $cmd) {
         $spanContentText = $cmd -> getText();
         $lineHtml .= span($formatting, $spanContentText);
     }
-    if ($cmd -> isAvailableAs('LineBreak')) {
+    if ($cmd -> isAvailableAs('LineBreak') && $skipLineBreak) {
+        $skipLineBreak = false;
+    } else if ($cmd -> isAvailableAs('LineBreak')) {
         // Write fresh block element out to HTML
         if ($lineHtml === "") {
             $lineHtml = span($formatting);
@@ -55,17 +58,20 @@ foreach ($commands as $cmd) {
         if ($sub -> isAvailableAs('StoreRasterFmtDataToPrintBufferGraphicsSubCmd')) {
             $bufferedImg = $sub;
         } else if ($sub -> isAvailableAs('PrintBufferredDataGraphicsSubCmd') && $bufferedImg !== null) {
-            $imgAlt = "Image " . $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
-            $imgSrc = "data:image/png;base64," . base64_encode($bufferedImg -> asPng());
-            $imgWidth = $bufferedImg -> getWidth() / 2; // scaling, images are quite high res and dwarf the text
-            $bufferedImg = null;
-            $lineHtml .= "<img class=\"esc-bitimage\" src=\"$imgSrc\" alt=\"$imgAlt\" width=\"${imgWidth}px\" />";
             // Append and flush buffer
             $classes = getBlockClasses($formatting);
             $classesStr = implode($classes, " ");
-            $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", $lineHtml);
+            $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", imgAsDataUrl($bufferedImg));
             $lineHtml = "";
         }
+    } else if ($cmd -> isAvailableAs('ImageContainer')) {
+        // Append and flush buffer
+        $classes = getBlockClasses($formatting);
+        $classesStr = implode($classes, " ");
+        $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", imgAsDataUrl($cmd));
+        $lineHtml = "";
+        // Should load into print buffer and print next line break, but we print immediately, so need to skip the next line break.
+        $skipLineBreak = true;
     }
 }
 
@@ -88,6 +94,15 @@ $head = wrapBlock("<head>", "</head>", $metaInfo);
 $body = wrapBlock("<body>", "</body>", $receipt);
 $html = wrapBlock("<html>", "</html>", array_merge($head, $body), false);
 echo "<!DOCTYPE html>\n" . implode("\n", $html) . "\n";
+
+function imgAsDataUrl($bufferedImg)
+{
+    $imgAlt = "Image " . $bufferedImg -> getWidth() . 'x' . $bufferedImg -> getHeight();
+    $imgSrc = "data:image/png;base64," . base64_encode($bufferedImg -> asPng());
+    $imgWidth = $bufferedImg -> getWidth() / 2; // scaling, images are quite high res and dwarf the text
+    $bufferedImg = null;
+    return "<img class=\"esc-bitimage\" src=\"$imgSrc\" alt=\"$imgAlt\" width=\"${imgWidth}px\" />";
+}
 
 function wrapInline($tag, $closeTag, $content)
 {

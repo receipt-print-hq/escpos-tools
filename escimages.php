@@ -121,7 +121,7 @@ foreach ($commands as $cmd) {
             outpImg($outputDir, $imgNo, $bufferedImg, $outputPbm, $outputPng, $receiptName);
             $bufferedImg = null;
         }
-    } else if ($cmd -> isAvailableAs('SelectBitImageModeCmd')) {
+    } else if ($cmd -> isAvailableAs('ImageContainer')) {
         $imgNo = $imgNo + 1;
         outpImg($outputDir, $imgNo, $cmd, $outputPbm, $outputPng, $receiptName);
     }
