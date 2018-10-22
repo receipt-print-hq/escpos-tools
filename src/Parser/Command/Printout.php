@@ -28,6 +28,7 @@ class Printout extends Command
             '@' => 'InitializeCmd',
             '*' => 'SelectBitImageModeCmd',
             '!' => 'SelectPrintModeCmd',
+            '{' => 'EnableUpsideDownPrintModeCmd',
             '=' => 'SelectPeripheralDeviceCmd',
             'c' => array(
                 '0' => 'UnknownCommandOneArg',
@@ -57,6 +58,7 @@ class Printout extends Command
             '!' => 'SelectCharacterSizeCmd',
             'V' => 'FeedAndCutCmd',
             'b' => 'EnableSmoothingCmd',
+            'B' => 'EnableBlackWhiteInvertCmd',
             '(' => array(
                 'C' => array(
 
