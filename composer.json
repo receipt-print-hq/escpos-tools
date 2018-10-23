@@ -1,7 +1,9 @@
 {
 	"require" : {
 		"squizlabs/php_codesniffer" : "^2.8",
-		"mike42/escpos-php": "^1.5"
+		"mike42/escpos-php": "^2.0",
+		"php": ">=5.6.0",
+                "ext-mbstring": "*"
 	},
 	"autoload" : {
 		"psr-4" : {

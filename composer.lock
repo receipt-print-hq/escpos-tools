@@ -4,31 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b5630260eb622bbc042c2d420c2abe1e",
-    "content-hash": "ea62982abf2ff4d1f3c1f9246556fbb2",
+    "content-hash": "f141e434644dff602c670178028957eb",
     "packages": [
         {
             "name": "mike42/escpos-php",
-            "version": "v1.5.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mike42/escpos-php.git",
-                "reference": "11d8ed8950b775c6f120722de10ee2ef6fb90f18"
+                "reference": "416e340f9cb90fa40611484f1b3c68df06205a84"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mike42/escpos-php/zipball/11d8ed8950b775c6f120722de10ee2ef6fb90f18",
-                "reference": "11d8ed8950b775c6f120722de10ee2ef6fb90f18",
+                "url": "https://api.github.com/repos/mike42/escpos-php/zipball/416e340f9cb90fa40611484f1b3c68df06205a84",
+                "reference": "416e340f9cb90fa40611484f1b3c68df06205a84",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": ">=5.3.9"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "guzzlehttp/guzzle": "~3.0|~4.0|~5.0|~6.0",
-                "phpunit/phpunit": "4.8.*",
-                "squizlabs/php_codesniffer": "2.*"
+                "guzzlehttp/guzzle": "^5.3",
+                "phpunit/phpunit": "^4.8",
+                "squizlabs/php_codesniffer": "^3.2"
             },
             "suggest": {
                 "ext-gd": "Used for image printing if present.",
@@ -60,20 +59,20 @@
                 "print",
                 "receipt"
             ],
-            "time": "2017-03-12 12:17:11"
+            "time": "2018-06-30T03:06:21+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.8.1",
+            "version": "2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d"
+                "reference": "dcbed1074f8244661eecddfc2a675430d8d33f62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d",
-                "reference": "d7cf0d894e8aa4c73712ee4a331cc1eaa37cdc7d",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/dcbed1074f8244661eecddfc2a675430d8d33f62",
+                "reference": "dcbed1074f8244661eecddfc2a675430d8d33f62",
                 "shasum": ""
             },
             "require": {
@@ -138,7 +137,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-03-01 22:17:45"
+            "time": "2017-05-22T02:43:20+00:00"
         }
     ],
     "packages-dev": [],
@@ -147,6 +146,9 @@
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.6.0",
+        "ext-mbstring": "*"
+    },
     "platform-dev": []
 }
