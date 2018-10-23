@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f141e434644dff602c670178028957eb",
+    "content-hash": "c902d3ef075ef46614ab15760f6bc727",
     "packages": [
         {
             "name": "mike42/escpos-php",
@@ -148,7 +148,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.6.0",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-imagick": "*"
     },
     "platform-dev": []
 }
