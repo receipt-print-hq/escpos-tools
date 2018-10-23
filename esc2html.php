@@ -139,6 +139,18 @@ function span(InlineFormatting $formatting, $spanContentText = false)
     if ($formatting -> bold) {
         $classes[] = "esc-emphasis";
     }
+    if ($formatting -> underline > 0) {
+        $classes[] = $formatting -> underline > 1 ? "esc-underline-double" : "esc-underline";
+    }
+    if ($formatting -> invert) {
+        $classes[] = "esc-invert";
+    }
+    if ($formatting -> upsideDown) {
+        $classes[] = "esc-upside-down";
+    }
+    if ($formatting -> font == 1) {
+        $classes[] = "esc-font-b";
+    }
     if ($formatting -> widthMultiple > 1 || $formatting -> heightMultiple > 1) {
         $classes[] = "esc-text-scaled";
         // Add a single class representing height and width scaling
