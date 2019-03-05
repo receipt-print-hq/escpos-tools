@@ -3,7 +3,7 @@ namespace ReceiptPrintHq\EscposTools\Parser\Command;
 
 use ReceiptPrintHq\EscposTools\Parser\Command\Command;
 
-class FeedAndCutCmd extends Command
+class FeedAndCutCmd extends Command implements LineBreak
 {
     private $arg1 = null;
     private $arg2 = null;
