@@ -12,7 +12,7 @@ Anybody may add to the discussion on the bug tracker. Just be sure to add new qu
 
 ## Submitting changes
 
-Code changes may be submitted as a "[pull request](https://help.github.com/articles/about-pull-requests/)" at [receipt-print-hq/escpos-tools](https://github.com/receipt-print-hq/escpos-tools). The description should include some information about how the change improves the library.
+Code changes may be submitted as a "[pull request](https://help.github.com/en/articles/about-pull-requests)" at [receipt-print-hq/escpos-tools](https://github.com/receipt-print-hq/escpos-tools). The description should include some information about how the change improves the library.
 
 The project is MIT-licensed (see [LICENSE.md](https://github.com/receipt-print-hq/escpos-tools/blob/master/LICENSE.md) for details). You are not required to assign copyright in order to submit changes, but you do need to agree for your code to be distributed under this license in order for it to be accepted.
 
