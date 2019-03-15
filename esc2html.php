@@ -123,16 +123,15 @@ function wrapBlock($tag, $closeTag, array $content, $indent = true)
 function span(InlineFormatting $formatting, $spanContentText = false)
 {
     // Gut some features-
-    if ($formatting -> widthMultiple > 2) {
+    if ($formatting -> widthMultiple > 8) {
         // Widths > 2 are not implemented. Cap the width at 2 to avoid formatting issues.
-        $formatting -> widthMultiple = 2;
+        $formatting -> widthMultiple = 8;
     }
-    if ($formatting -> heightMultiple > 2) {
-        // Widths > 2 are not implemented either
-        $formatting -> heightMultiple = 2;
+    if ($formatting -> heightMultiple > 8) {
+        // Widths > 8 are not implemented either
+        $formatting -> heightMultiple = 8;
     }
-    
-   
+
     // Determine formatting classes to use
     $classes = array();
 
