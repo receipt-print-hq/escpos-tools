@@ -28,7 +28,8 @@ $longopts  = array(
     "output-dir:",
     "png",
     "pbm",
-    "help"
+    "help",
+    "include-blank-lines"
 );
 $options = getopt($shortopts, $longopts);
 $usage = "Usage: " . $argv[0] . " OPTIONS --file 'filename'\n";
@@ -49,6 +50,8 @@ if (!$outputPng && !$outputPbm) {
   // Default
     $outputPng = true;
 }
+// Include blank lines
+$blankLines = array_key_exists("include-blank-lines", $options);
 
 if (empty($options) || ( $inputFile === null && !$showHelp)) {
   // Incorrect usage shows error and quits nonzero
@@ -66,6 +69,7 @@ if (array_key_exists("h", $options) || array_key_exists("help", $options)) {
  Output options:
 
   -o, --output-dir DIRECTORY  The directory to write output files to.
+  --include-blank-lines       Output a 24px tall, 1px wide image for each line of text encountered.
 
  Output format:
 
@@ -124,6 +128,26 @@ foreach ($commands as $cmd) {
     } else if ($cmd -> isAvailableAs('ImageContainer')) {
         $imgNo = $imgNo + 1;
         outpImg($outputDir, $imgNo, $cmd, $outputPbm, $outputPng, $receiptName);
+    }
+    if ($blankLines) {
+        if ($cmd -> isAvailableAs('LineBreak')) {
+            $imgNo = $imgNo + 1;
+            $outpFilename = $outputDir . '/' . "$receiptName-" . sprintf('%02d', $imgNo);
+            echo "[ Image $imgNo: 1x24 ]\n";
+            if ($outputPbm) {
+                $data = "P4\n1 24\n 0000 0000 0000 0000 0000 0000";
+                file_put_contents($outpFilename.'.pbm',$data);
+            }
+            if ($outputPng) {
+                ob_start();
+                $png_image = imagecreate(1, 24);
+                imagecolorallocate($png_image, 255, 255, 255);
+                imagepng($png_image);
+                $data = ob_get_clean();
+                imagedestroy($png_image);
+                file_put_contents($outpFilename.'.png',$data);
+            }
+        }
     }
 }
 
