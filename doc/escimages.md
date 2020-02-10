@@ -5,6 +5,8 @@
 All non-graphical elements of the receipt are ignored, and a pair of files is
 written (in PBM and PNG format) for each image found in the source file.
 
+Default encoding is [CP437](https://en.wikipedia.org/wiki/Code_page_437) If your ESC/POS binary file different encoding, set **SOURCE_ENCODING** environment variable.
+
 ## Installation
 
 This utility is included with escpos-tools. See the

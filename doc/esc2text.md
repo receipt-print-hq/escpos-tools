@@ -2,6 +2,8 @@
 
 `esc2text` extracts text from binary ESC/POS files.
 
+Default encoding is [CP437](https://en.wikipedia.org/wiki/Code_page_437) If your ESC/POS binary file different encoding, set **SOURCE_ENCODING** environment variable.
+
 The plaintext output is UTF-8 encoded, and written to standard output.
 
 It operates by reading all of the commands in the input file, and discarding

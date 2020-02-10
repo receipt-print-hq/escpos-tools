@@ -1,7 +1,7 @@
 # esc2html
 
 `esc2html` converts an ESC/POS binary file into a HTML document. It is currently capable of rendering some types of
-formatting and images, plus any ASCII text in the input file.
+formatting and images, plus any ASCII text in the input file. Default encoding is [CP437](https://en.wikipedia.org/wiki/Code_page_437) If your ESC/POS binary file different encoding, set **SOURCE_ENCODING** environment variable.
 
 ```
 $ php esc2html.php receipt-with-logo.bin > output.html
