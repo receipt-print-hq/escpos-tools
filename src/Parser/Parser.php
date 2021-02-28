@@ -33,4 +33,10 @@ class Parser
             }
         }
     }
+
+    public function addBuffer($buffer) {
+        for ($i = 0; $i < strlen($buffer); $i++) {
+            $this -> printout -> addChar($buffer[$i]);
+        }
+    }
 }

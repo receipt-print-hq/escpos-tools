@@ -8,16 +8,32 @@ use ReceiptPrintHq\EscposTools\Parser\Parser;
 use ReceiptPrintHq\EscposTools\Parser\Context\InlineFormatting;
 
 // Usage
-if (!isset($argv[1])) {
-    print("Usage: " . $argv[0] . " filename\n");
-    die();
+if (php_sapi_name() == "cli-server") {
+    if (!isset($_POST["receipt"])) {
+        echo "<p>No valid data received</p>";
+        die();
+    }
+} else {
+    if (!isset($argv[1])) {
+        print("Usage: " . $argv[0] . " filename\n");
+        die();
+    }
 }
 
-// Load in a file
-$fp = fopen($argv[1], 'rb');
-
 $parser = new Parser();
-$parser -> addFile($fp);
+if (php_sapi_name() == "cli-server") {
+    // Load buffer
+    $buffer = base64_decode($_POST["receipt"]);
+    if (!$buffer) {
+        echo "<p>Receipt SHALL be coded with Base64</p>";
+        die();
+    }
+    $parser -> addBuffer($buffer);
+} else {
+    // Load in a file
+    $fp = fopen($argv[1], 'rb');
+    $parser -> addFile($fp);
+}
 
 // Extract text
 $commands = $parser -> getCommands();
