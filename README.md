@@ -44,6 +44,28 @@ composer install
 
 - [escimages documentation](doc/escimages.md)
 
+## Execute HTTP Server
+
+In order to start escpos to `esc2html` as a trivial HTTP API:
+
+```bash
+php -S 0.0.0.0:8000 esc2html.php
+```
+
+Now, sending an HTTP POST query with `receipt` parameter with the receipt (coded in Base64)
+
+To get the Base64 data:
+
+```bash
+base64 -w 0 receipt-with-logo.bin
+```
+
+To use the trivial API:
+
+```bash
+curl http://localhost:8000 -d "receipt=<base64_receipt>"
+```
+
 ## Contribute
 
 - [CONTRIBUTING.md](CONTRIBUTING.md)
