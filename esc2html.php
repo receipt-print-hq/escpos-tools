@@ -158,6 +158,10 @@ function span(InlineFormatting $formatting, $spanContentText = false)
         $classes[] = "esc" . $widthClass . $heightClass;
     }
 
+    if ($formatting->alternateColor) {
+        $classes[] = 'esc-alternate-color';
+    }
+
     // Provide span content as HTML
     if ($spanContentText === false) {
         $spanContentHtml = "&nbsp;";

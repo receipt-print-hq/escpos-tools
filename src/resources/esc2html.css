@@ -386,3 +386,7 @@ TODO
 .esc-bitimage {
     display: block;
 }
+
+.esc-alternate-color {
+    color: red;
+}
