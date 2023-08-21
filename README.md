@@ -24,6 +24,19 @@ cd escpos-tools
 composer install
 ```
 
+To install dependencies:
+
+Linux:
+```bash
+sudo apt install php-imagick php-mbstring
+```
+
+MacOS:
+```bash
+brew install stringz 
+pecl install imagick
+```
+
 ## Included utilities
 
 ### esc2text
