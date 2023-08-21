@@ -49,7 +49,7 @@ foreach ($commands as $cmd) {
         }
         // Block-level formatting such as text justification
         $classes = getBlockClasses($formatting);
-        $classesStr = implode($classes, " ");
+        $classesStr = implode(" ", $classes);
         $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", $lineHtml);
         $lineHtml = "";
     }
@@ -60,14 +60,14 @@ foreach ($commands as $cmd) {
         } else if ($sub -> isAvailableAs('PrintBufferredDataGraphicsSubCmd') && $bufferedImg !== null) {
             // Append and flush buffer
             $classes = getBlockClasses($formatting);
-            $classesStr = implode($classes, " ");
+            $classesStr = implode(" ", $classes);
             $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", imgAsDataUrl($bufferedImg));
             $lineHtml = "";
         }
     } else if ($cmd -> isAvailableAs('ImageContainer')) {
         // Append and flush buffer
         $classes = getBlockClasses($formatting);
-        $classesStr = implode($classes, " ");
+        $classesStr = implode(" ", $classes);
         $outp[] = wrapInline("<div class=\"$classesStr\">", "</div>", imgAsDataUrl($cmd));
         $lineHtml = "";
         // Should load into print buffer and print next line break, but we print immediately, so need to skip the next line break.
@@ -101,7 +101,7 @@ function imgAsDataUrl($bufferedImg)
     $imgSrc = "data:image/png;base64," . base64_encode($bufferedImg -> asPng());
     $imgWidth = $bufferedImg -> getWidth() / 2; // scaling, images are quite high res and dwarf the text
     $bufferedImg = null;
-    return "<img class=\"esc-bitimage\" src=\"$imgSrc\" alt=\"$imgAlt\" width=\"${imgWidth}px\" />";
+    return "<img class=\"esc-bitimage\" src=\"$imgSrc\" alt=\"$imgAlt\" width=\"{$imgWidth}px\" />";
 }
 
 function wrapInline($tag, $closeTag, $content)
@@ -169,7 +169,7 @@ function span(InlineFormatting $formatting, $spanContentText = false)
     if (count($classes) == 0) {
         return $spanContentHtml;
     }
-    return "<span class=\"". implode($classes, " ") . "\">" . $spanContentHtml . "</span>";
+    return "<span class=\"". implode(" ", $classes) . "\">" . $spanContentHtml . "</span>";
 }
 
 function getBlockClasses($formatting)
